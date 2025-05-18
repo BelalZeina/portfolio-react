@@ -1,4 +1,6 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+
 import { FaFacebook, FaGithub, FaLinkedin, FaWhatsapp, FaPhone } from 'react-icons/fa';
 
 const contactMethods = [
@@ -41,6 +43,11 @@ const contactMethods = [
 
 const Contact = () => (
   <div className="container py-5">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
     <h2 className="display-4 text-center mb-5 fw-bold">
       CONTACT ME
     </h2>
@@ -101,6 +108,7 @@ const Contact = () => (
         </div>
       </div>
     </div>
+    </motion.div>
   </div>
 );
 

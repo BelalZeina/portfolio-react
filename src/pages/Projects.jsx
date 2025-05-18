@@ -7,7 +7,7 @@ const Projects = () => {
     {
       id: 1,
       name: 'podcastonly',
-      image: 'images/podcast_only.png',
+      image: 'images/profile.png',
       url: "https://podcastonly.me/",
       technologies: [ 'React','Laravel', 'MySQL'],
     },
@@ -21,7 +21,7 @@ const Projects = () => {
     {
       id: 1,
       name: 'Seazera',
-      image: 'images/seazera.png',
+      image: 'images/seazera-1.png',
       url: "https://seazera.softwareconnect.net/",
       technologies: [ 'Laravel',"Livewire", 'MySQL'],
     },
@@ -35,7 +35,7 @@ const Projects = () => {
     {
       id: 1,
       name: 'nilevalley',
-      image: 'images/nile.png',
+      image: 'images/nile-1.png',
       url: "https://nilevalley-eg.com/",
       technologies: [ 'Laravel', 'MySQL'],
     },

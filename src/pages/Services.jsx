@@ -1,4 +1,6 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+
 import { 
     FaCode, 
     FaPalette, 
@@ -44,6 +46,11 @@ const Services = () => {
   return (
     <section className="py-5">
       <div className="container">
+              <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
         <h2 className="text-center mb-4 display-5 fw-bold">OFFERINGS TO MY CLIENTS</h2>
         <p className="text-center text-muted mb-5 lead">
           Crafting Web Experiences! From sleek designs to dynamic apps...
@@ -60,6 +67,7 @@ const Services = () => {
             </div>
           ))}
         </div>
+        </motion.div>
       </div>
     </section>
   );
