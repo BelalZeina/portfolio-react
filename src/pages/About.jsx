@@ -121,10 +121,16 @@ const About = () => {
           <div className="row">
             <div className="col-md-12">
               <p className="lead mb-3">
-                Hello, I'm Belal Zeina, a seasoned Full Stack Web Developer with a passion for continuous learning and professional growth. I possess extensive expertise in both front-end and back-end development techniques.
+                Hello, I'm Belal Zeina — a dedicated Full Stack Web Developer with a strong passion for continuous learning and professional excellence.              
               </p>
               <p className="lead mb-3">
-                I'm confident in crafting responsive Front-End websites, I'm equally skilled in Back-End development using Laravel, including API creation. I'm a collaborative team player, comfortable with GitHub. Explore my projects for yourself.
+                I bring extensive experience in both front-end and back-end development, with a particular focus on building responsive, user-centric interfaces and robust server-side solutions.              
+              </p>
+              <p className="lead mb-3">
+                I specialize in developing modern front-end experiences, and I’m highly proficient in Laravel for back-end development, including building secure and scalable APIs. I thrive in collaborative environments, use GitHub for version control, and am always eager to tackle new challenges.
+              </p>
+              <p>
+                Take a look at my projects to see the quality and versatility of my work.
               </p>
 
               {/* Stats Section */}

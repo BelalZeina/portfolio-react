@@ -108,6 +108,22 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <meta name="google-site-verification" content="google392879ffc8d75b2e.html" />
+        <meta name="keywords" content="Belal Zeina, Laravel Developer, Full Stack, Web Developer, PHP, React" />
+        <meta name="author" content="Belal Ashraf Zeina" />
+
+        {/* Open Graph / Facebook */}
+        <meta property="og:title" content="Belal Zeina - Full Stack Web Developer" />
+        <meta property="og:description" content="Portfolio of Belal Zeina, Laravel expert and full stack developer." />
+        <meta property="og:image" content="/images/profile.jpg" />
+        <meta property="og:url" content="https://yourdomain.com/" />
+        <meta property="og:type" content="website" />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Belal Zeina - Full Stack Web Developer" />
+        <meta name="twitter:description" content="Portfolio of Belal Zeina, Laravel expert and full stack developer." />
+        <meta name="twitter:image" content="/images/profile.jpg" />
       <Router>
         <Navbar mode={mode} toggleMode={toggleMode} />
         <Routes>
