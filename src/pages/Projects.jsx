@@ -5,6 +5,13 @@ import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 const Projects = () => {
   const projects = [
     {
+      id: 16,
+      name: 'ديار النخبة',
+      image: 'images/deiyar.png',
+      url: "https://deiyar.com/",
+      technologies: [ 'React','Laravel', 'MySQL'],
+    },
+    {
       id: 1,
       name: 'podcastonly',
       image: 'images/profile.png',

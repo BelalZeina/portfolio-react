@@ -11,6 +11,7 @@ import About from './pages/About';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 import Services from './pages/Services';
+import ScrollToTop from './pages/ScrollToTop';
 
 const getDesignTokens = (mode) => ({
   palette: {
@@ -125,6 +126,7 @@ function App() {
         <meta name="twitter:description" content="Portfolio of Belal Zeina, Laravel expert and full stack developer." />
         <meta name="twitter:image" content="/images/profile.jpg" />
       <Router>
+        <ScrollToTop />
         <Navbar mode={mode} toggleMode={toggleMode} />
         <Routes>
           <Route path="/" element={<Home />} />
