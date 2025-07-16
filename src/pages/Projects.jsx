@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
+import { Helmet } from 'react-helmet-async'; // Install: `npm install react-helmet-async`
 
 const Projects = () => {
   const projects = [
@@ -121,6 +122,10 @@ const Projects = () => {
 
   return (
     <div className="container py-5">
+      <Helmet>
+        <title>Belal Zeina | Projects</title>
+        <meta name="description" content="Learn about Belal Zeina's web development projects." />
+      </Helmet>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

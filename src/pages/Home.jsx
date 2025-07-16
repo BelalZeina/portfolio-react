@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaCode, FaDatabase, FaPalette, FaLink, FaServer, FaCogs  } from 'react-icons/fa';
+import { Helmet } from 'react-helmet-async'; // Install: `npm install react-helmet-async`
 import About from './About';
 import Projects from './Projects';
 import Contact from './Contact';
@@ -77,6 +77,10 @@ const Home = () => {
         {/* Contact Section */}
         <section id="contact"><Contact /></section>
       </div>
+      <Helmet>
+        <title>Belal Zeina | Web Developer</title>
+        <meta name="description" content="Learn about Belal Zeina's web development skills." />
+      </Helmet>
     </>
 
   );

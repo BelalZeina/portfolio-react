@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async'; // Install: `npm install react-helmet-async`
 
 import { 
     FaCode, 
@@ -45,6 +46,10 @@ const Services = () => {
 
   return (
     <section className="py-5">
+      <Helmet>
+        <title>Belal Zeina | Servises</title>
+        <meta name="description" content="Learn about Belal Zeina's web development servises." />
+      </Helmet>
       <div className="container">
               <motion.div
         initial={{ opacity: 0, y: 20 }}

@@ -1,5 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async'; 
+
 import { 
   FaBriefcase, 
   FaGraduationCap,
@@ -107,6 +109,10 @@ const About = () => {
 
   return (
     <div className="container py-5">
+      <Helmet>
+        <title>About Belal Zeina | Web Developer</title>
+        <meta name="description" content="Learn about Belal Zeina's web development skills." />
+      </Helmet>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

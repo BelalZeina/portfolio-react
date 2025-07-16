@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async'; // Install: `npm install react-helmet-async`
 
 import { FaFacebook, FaGithub, FaLinkedin, FaWhatsapp, FaPhone } from 'react-icons/fa';
 
@@ -43,6 +44,10 @@ const contactMethods = [
 
 const Contact = () => (
   <div className="container py-5">
+    <Helmet>
+      <title>Belal Zeina | contact</title>
+      <meta name="description" content="contact with Belal Zeina now." />
+    </Helmet>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
