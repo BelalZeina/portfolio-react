@@ -19,8 +19,8 @@ import {
   FaBriefcase, 
   FaGraduationCap,
   FaHtml5,
-  FaCss3Alt,
-  FaJs,
+  FaPython,
+  FaReact,
   FaGithub,
   FaNodeJs,
   FaLaravel,
@@ -36,6 +36,8 @@ import {
   SiTailwindcss,
   SiLivewire,
 } from 'react-icons/si';
+import { SiFlask } from "react-icons/si";
+
 import { GrProjects } from 'react-icons/gr';
 
 const About = () => {
@@ -87,64 +89,37 @@ const About = () => {
     ]
   };
 
-  const tools = [
-    {
-      name: "HTML",
-      icon: <FaHtml5 size={24} />
-    },
-    {
-      name: "CSS",
-      icon: <FaCss3Alt size={24} />
-    },
-    {
-      name: "JavaScript",
-      icon: <FaJs size={24} />
-    },
-    {
-      name: "jQuery",
-      icon: <SiJquery size={24} />
-    },
-    {
-      name: "Bootstrap",
-      icon: <SiBootstrap size={24} />
-    },
-    {
-      name: "Tailwind",
-      icon: <SiTailwindcss size={24} />
-    },
-    {
-      name: "PHP",
-      icon: <FaPhp size={24} />
-    },
-    {
-      name: "Laravel",
-      icon: <FaLaravel size={24} />
-    },
-    {
-      name: "MySQL",
-      icon: <FaDatabase size={24} />
-    },
-    {
-      name: "Livewire",
-      icon: <SiLivewire size={24} />
-    },
-    {
-      name: "Node.js",
-      icon: <FaNodeJs size={24} />
-    },
-    {
-      name: "MongoDB",
-      icon: <FaDatabase size={24} />
-    },
-    {
-      name: "Git",
-      icon: <FaGitAlt size={24} />
-    },
-    {
-      name: "SSH",
-      icon: <FaTerminal size={24} />
-    }
+  // Tool categories and tools with skill levels
+  const toolCategories = [
+    { key: 'all', label: 'All' },
+    { key: 'backend', label: 'Backend' },
+    { key: 'web', label: 'Frontend' },
+    { key: 'database', label: 'Database' },
+    // { key: 'devops', label: 'Cloud & DevOps' },
+    { key: 'tools', label: 'Tools' },
   ];
+
+  const tools = [
+    { name: 'HTML/CSS', icon: <FaHtml5 size={32} />, category: 'web', level: 'Advanced', color: '#ff5722' },
+    { name: 'PHP', icon: <FaPhp size={32} />, category: 'backend', level: 'Advanced', color: '#777bb4' },
+    { name: 'Laravel', icon: <FaLaravel size={32} />, category: 'backend', level: 'Advanced', color: '#f55247' },
+    { name: 'Python', icon: <FaPython size={32} />, category: 'backend', level: 'Advanced', color: '#0769ad' },
+    { name: 'REST API', icon: <FaTerminal size={32} />, category: 'backend', level: 'Advanced', color: isDark?'#fff':'#222' },
+    { name: 'Node.js', icon: <FaNodeJs size={32} />, category: 'backend', level: 'Intermediate', color: '#8cc84b' },
+    { name: 'Flask', icon: <SiFlask size={32} />, category: 'backend', level: 'Intermediate', color: isDark?'#fff':'#000' },
+    { name: 'MySQL', icon: <FaDatabase size={32} />, category: 'database', level: 'Advanced', color: '#00758f' },
+    { name: 'MongoDB', icon: <FaDatabase size={32} />, category: 'database', level: 'Advanced', color: '#47a248' },
+    { name: 'jQuery', icon: <SiJquery size={32} />, category: 'web', level: 'Advanced', color: '#0769ad' },
+    { name: 'Livewire', icon: <SiLivewire size={32} />, category: 'web', level: 'Advanced', color: '#e83e8c' },
+    { name: 'React', icon: <FaReact  size={32} />, category: 'web', level: 'Intermediate', color: '#61dafb' },
+    { name: 'Bootstrap', icon: <SiBootstrap size={32} />, category: 'web', level: 'Advanced', color: '#563d7c' },
+    { name: 'Tailwind', icon: <SiTailwindcss size={32} />, category: 'web', level: 'Intermediate', color: '#38bdf8' },
+    { name: 'Git', icon: <FaGitAlt size={32} />, category: 'tools', level: 'Advanced', color: '#f34f29' },
+    { name: 'SSH', icon: <FaTerminal size={32} />, category: 'tools', level: 'Advanced', color: isDark?'#fff':'#222' },
+  ];
+
+  const [selectedCategory, setSelectedCategory] = React.useState('all');
+  const filteredTools = selectedCategory === 'all' ? tools : tools.filter(tool => tool.category === selectedCategory);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -337,10 +312,32 @@ const About = () => {
               <Typography variant="h4" sx={{ mb: 4, fontWeight: 600 }}>
                 TOOLS EXPERTS
               </Typography>
-              
+              {/* Category Filter Buttons */}
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mb: 4 }}>
+                {toolCategories.map(cat => (
+                  <Chip
+                    key={cat.key}
+                    label={cat.label}
+                    color={selectedCategory === cat.key ? 'primary' : 'default'}
+                    onClick={() => setSelectedCategory(cat.key)}
+                    sx={{
+                      fontWeight: 600,
+                      fontSize: '1rem',
+                      px: 2,
+                      py: 1,
+                      borderRadius: 2,
+                      boxShadow: selectedCategory === cat.key ? 2 : 0,
+                      cursor: 'pointer',
+                      background: selectedCategory === cat.key ? 'linear-gradient(45deg, #64b5f6, #f48fb1)' : undefined,
+                      color: selectedCategory === cat.key ? 'white' : undefined
+                    }}
+                  />
+                ))}
+              </Box>
+              {/* Tools Grid */}
               <Grid container spacing={2}>
-                {tools.map((tool, index) => (
-                  <Grid item xs={6} sm={4} md={3} key={index} sx={{ display: 'flex' }}>
+                {filteredTools.map((tool, index) => (
+                  <Grid item xs={12} sm={6} md={3} key={index} sx={{ display: 'flex' }}>
                     <motion.div
                       variants={cardVariants}
                       whileHover={{ scale: 1.05 }}
@@ -353,29 +350,35 @@ const About = () => {
                           width: '100%',
                           height: '100%',
                           textAlign: 'center',
-                          // background: isDark ? 'background.card' : 'background.card',
-                          background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                          // background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
                           border: '1px solid',
                           borderColor: 'divider',
+                          boxShadow: theme.shadows[1],
                           '&:hover': {
                             boxShadow: theme.shadows[8],
                             transform: 'translateY(-4px)'
                           },
-                          transition: 'all 0.3s ease'
+                          transition: 'all 0.3s ease',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          minHeight: 140
                         }}
                       >
-                        <Box sx={{ 
-                          background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
-                          backgroundClip: 'text',
-                          WebkitBackgroundClip: 'text',
-                          WebkitTextFillColor: 'transparent',
-                          mb: 1 
-                        }}>
-                          {tool.icon}
-                        </Box>
-                        <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                        <Box sx={{ mb: 1, color: tool.color }}>{tool.icon}</Box>
+                        <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>
                           {tool.name}
                         </Typography>
+                        <Chip
+                          label={tool.level}
+                          size="small"
+                          sx={{
+                            background: tool.level === 'Advanced' ? '#e0f7fa' : '#fffde7',
+                            color: tool.level === 'Advanced' ? '#00796b' : '#fbc02d',
+                            fontWeight: 700
+                          }}
+                        />
                       </Card>
                     </motion.div>
                   </Grid>

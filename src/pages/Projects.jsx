@@ -2,9 +2,17 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 import { Helmet } from 'react-helmet-async'; // Install: `npm install react-helmet-async`
-import { Typography } from '@mui/material';
+import { Typography, Button} from '@mui/material';
+
 const Projects = () => {
   const projects = [
+    {
+      id: 17,
+      name: 'delw2ty',
+      image: 'images/delw2ty.png',
+      url: "https://delw2ty.com/",
+      technologies: [ 'React','Laravel','Livewire', 'MySQL'],
+    },
     {
       id: 16,
       name: 'ديار النخبة',
@@ -172,7 +180,8 @@ const Projects = () => {
                     {project.technologies.map((tech, index) => (
                       <span
                         key={index}
-                        className="badge bg-primary bg-opacity-10 text-primary"
+                        style={{background: 'linear-gradient(45deg, #64b5f6, #f48fb1)'}}
+                        className="badge  bg-opacity-10 text-dark"
                       >
                         {tech}
                       </span>
@@ -181,15 +190,29 @@ const Projects = () => {
                 </div>
                 {project.url && (
                   <div className="card-footer bg-transparent border-0 d-flex gap-2">
-                    <a
+                                      
+                    <Button
                       href={project.url}
+                      variant="outlined"
                       target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn btn-sm btn-outline-primary"
+                      size="small"
+                      sx={{
+                        px: 2,
+                        padding: .3,
+                        marginBottom: 1,
+                        borderColor: '#64b5f6',
+                        color: '#64b5f6',
+                        '&:hover': {
+                          transform: 'translateY(-3px)',
+                          borderWidth: 2,
+                          background: 'linear-gradient(45deg, rgba(100, 181, 246, 0.1), rgba(244, 143, 177, 0.1))',
+                          borderColor: '#f48fb1'
+                        }
+                      }}
                     >
-                      <FaExternalLinkAlt className="me-1" />
-                      Visit Project
-                    </a>
+                      <FaExternalLinkAlt className="ms-1 me-1" />
+                      <span className='me-1'>Visit Project</span>
+                    </Button>
                     {/* <a
                       href={project.url}
                       target="_blank"
