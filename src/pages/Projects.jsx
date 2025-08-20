@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 import { Helmet } from 'react-helmet-async'; // Install: `npm install react-helmet-async`
-
+import { Typography } from '@mui/material';
 const Projects = () => {
   const projects = [
     {
@@ -131,9 +131,20 @@ const Projects = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <h2 className="display-4 text-center mb-5 fw-bold">
-        MY RECENT COMPLETED PROJECTS
-        </h2>
+            <Typography
+              variant="h2"
+              sx={{
+                textAlign: 'center',
+                mb: 6,
+                fontWeight: 800,
+                background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent'
+              }}
+            >
+              MY RECENT COMPLETED PROJECTS
+            </Typography>
 
         <div className="row g-4">
           {projects.map((project) => (
@@ -150,7 +161,13 @@ const Projects = () => {
                   style={{ height: '200px', objectFit: 'cover' }}
                 />
                 <div className="card-body">
-                  <h3 className="card-title h5">{project.name}</h3>
+                  <h3 className="h5 fw-bold"   style={{
+                      background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent'
+                    }}>
+                      {project.name}
+                  </h3>
                   <div className="d-flex flex-wrap gap-2 mt-3">
                     {project.technologies.map((tech, index) => (
                       <span

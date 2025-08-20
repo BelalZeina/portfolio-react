@@ -1,6 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async'; 
+import { 
+  Box, 
+  Container, 
+  Typography, 
+  Grid, 
+  Card, 
+  CardContent, 
+  Paper,
+  Chip,
+  Avatar,
+  useTheme
+} from '@mui/material';
+import { ThemeContext } from '../App';
 
 import { 
   FaBriefcase, 
@@ -8,7 +21,8 @@ import {
   FaHtml5,
   FaCss3Alt,
   FaJs,
-  FaGithub ,
+  FaGithub,
+  FaNodeJs,
   FaLaravel,
   FaPhp,
   FaDatabase,
@@ -25,22 +39,39 @@ import {
 import { GrProjects } from 'react-icons/gr';
 
 const About = () => {
-  const experience = {
-    title: "WORK EXPERIENCE",
-    institution: "Tek-Part company",
-    position: "Backend Developer",
-    startDate: "2023-01-12",
-    endDate: "2024-01-9",
-    description: [
-      "Developed and maintained backend systems using PHP and the Laravel framework",
-      "Designed and optimized MySQL databases",
-      "Implemented RESTful APIs",
-      "Collaborated with frontend developers",
-      "Conducted code reviews",
-      "Participated in Agile development methodologies",
-      "Developed comprehensive documentation"
-    ]
-  };
+  const { isDark } = useContext(ThemeContext);
+  const theme = useTheme();
+
+  const experiences = [
+    {
+      title: "WORK EXPERIENCE",
+      institution: "Freelance",
+      position: "Freelance Web Developer",
+      startDate: "2023",
+      endDate: "Present",
+      description: [
+        "Developed custom backend solutions for 15+ clients using Laravel and modern PHP practices",
+        "Integrated AI/ML models with web applications for enhanced functionality",
+        "Reduced average page load times by 35% through database optimization techniques"
+      ]
+    },
+    {
+      title: "WORK EXPERIENCE",
+      institution: "Tek-Part company",
+      position: "Backend Developer",
+      startDate: "2023-01-12",
+      endDate: "2024-01-9",
+      description: [
+        "Developed and maintained backend systems using PHP and the Laravel framework",
+        "Designed and optimized MySQL databases",
+        "Implemented RESTful APIs",
+        "Collaborated with frontend developers",
+        "Conducted code reviews",
+        "Participated in Agile development methodologies",
+        "Developed comprehensive documentation"
+      ]
+    }
+  ];
 
   const education = {
     title: "Education",
@@ -59,168 +90,467 @@ const About = () => {
   const tools = [
     {
       name: "HTML",
-      icon: <FaHtml5 size={24} className='text-primary' />
+      icon: <FaHtml5 size={24} />
     },
     {
       name: "CSS",
-      icon: <FaCss3Alt size={24} className="text-primary" />
+      icon: <FaCss3Alt size={24} />
     },
     {
       name: "JavaScript",
-      icon: <FaJs size={24} className="text-primary" />
+      icon: <FaJs size={24} />
     },
     {
       name: "jQuery",
-      icon: <SiJquery size={24} className="text-primary" />
+      icon: <SiJquery size={24} />
     },
     {
       name: "Bootstrap",
-      icon: <SiBootstrap size={24} className="text-primary" />
+      icon: <SiBootstrap size={24} />
     },
     {
       name: "Tailwind",
-      icon: <SiTailwindcss size={24} className="text-primary" />
-    },
-    {
-      name: "Laravel",
-      icon: <FaLaravel size={24} className="text-primary" />
+      icon: <SiTailwindcss size={24} />
     },
     {
       name: "PHP",
-      icon: <FaPhp size={24} className="text-primary" />
+      icon: <FaPhp size={24} />
+    },
+    {
+      name: "Laravel",
+      icon: <FaLaravel size={24} />
     },
     {
       name: "MySQL",
-      icon: <FaDatabase size={24} className="text-primary" />
+      icon: <FaDatabase size={24} />
     },
     {
       name: "Livewire",
-      icon: <SiLivewire size={24} className="text-primary" />
+      icon: <SiLivewire size={24} />
+    },
+    {
+      name: "Node.js",
+      icon: <FaNodeJs size={24} />
+    },
+    {
+      name: "MongoDB",
+      icon: <FaDatabase size={24} />
     },
     {
       name: "Git",
-      icon: <FaGitAlt size={24} className="text-primary" />
+      icon: <FaGitAlt size={24} />
     },
     {
       name: "SSH",
-      icon: <FaTerminal  size={24} className="text-primary" />
+      icon: <FaTerminal size={24} />
     }
   ];
 
-  return (
-    <div className="container py-5">
-      <Helmet>
-        <title>About Belal Zeina | Web Developer</title>
-        <meta name="description" content="Learn about Belal Zeina's web development skills." />
-      </Helmet>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <h2 className="display-4 text-center mb-5 fw-bold">
-          ABOUT ME
-        </h2>
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1
+      }
+    }
+  };
 
-        <div className="mb-5">
-          <h3 className="h3 mb-4">Personal Information</h3>
-          <div className="row">
-            <div className="col-md-12">
-              <p className="lead mb-3">
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  return (
+    <Box sx={{ 
+      py: 8,
+      background: isDark ? 'background.default' : 'background.default'
+    }}>
+      <Container maxWidth="lg">
+        <Helmet>
+          <title>About Belal Zeina | Web Developer</title>
+          <meta name="description" content="Learn about Belal Zeina's web development skills." />
+        </Helmet>
+        
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div variants={itemVariants}>
+            <Typography
+              variant="h2"
+              sx={{
+                textAlign: 'center',
+                mb: 6,
+                fontWeight: 800,
+                background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent'
+              }}
+            >
+              ABOUT ME
+            </Typography>
+          </motion.div>
+
+          {/* Personal Information */}
+          <motion.div variants={itemVariants}>
+            <Paper
+              elevation={isDark ? 0 : 2}
+              sx={{
+                p: 4,
+                mb: 6,
+                borderRadius: 3,
+                background: isDark ? 'background.paper' : 'background.paper',
+                border: isDark ? '1px solid' : 'none',
+                borderColor: 'divider'
+              }}
+            >
+              <Typography variant="h4" sx={{ mb: 3, fontWeight: 600 }}>
+                Personal Information
+              </Typography>
+              
+              <Typography variant="body1" sx={{ mb: 3, fontSize: '1.1rem', lineHeight: 1.8 }}>
                 Hello, I'm Belal Zeina — a dedicated Full Stack Web Developer with a strong passion for continuous learning and professional excellence.              
-              </p>
-              <p className="lead mb-3">
+              </Typography>
+              
+              <Typography variant="body1" sx={{ mb: 3, fontSize: '1.1rem', lineHeight: 1.8 }}>
                 I bring extensive experience in both front-end and back-end development, with a particular focus on building responsive, user-centric interfaces and robust server-side solutions.              
-              </p>
-              <p className="lead mb-3">
-                I specialize in developing modern front-end experiences, and I’m highly proficient in Laravel for back-end development, including building secure and scalable APIs. I thrive in collaborative environments, use GitHub for version control, and am always eager to tackle new challenges.
-              </p>
-              <p>
+              </Typography>
+              
+              <Typography variant="body1" sx={{ mb: 3, fontSize: '1.1rem', lineHeight: 1.8 }}>
+                I specialize in developing modern front-end experiences, and I'm highly proficient in Laravel for back-end development, including building secure and scalable APIs. I thrive in collaborative environments, use GitHub for version control, and am always eager to tackle new challenges.
+              </Typography>
+              
+              <Typography variant="body1" sx={{ fontSize: '1.1rem', lineHeight: 1.8 }}>
                 Take a look at my projects to see the quality and versatility of my work.
-              </p>
+              </Typography>
 
               {/* Stats Section */}
-              <div className="row mt-4">
-                <div className="col-4 text-center">
-                <div className="h2 mb-0"><GrProjects className='text-primary' /></div>
-                  <h4 className="h2 mb-0">+20</h4>
-                  <p className="text-muted">Projects</p>
-                </div>
-                <div className="col-4 text-center">
-                <div className="h2 mb-0"><FaGithub className='text-primary' /></div>
-                  <h4 className="h2 mb-0">+75</h4>
-                  <p className="text-muted">GitHub Repos</p>
-                </div>
-                <div className="col-4 text-center">
-                  <div className="h2 mb-0"><FaUsers className='text-primary' /></div>
-                  <h4 className="h2 mb-0">+25</h4>
-                  <p className="text-muted">Clients</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+              <Grid container justifyContent="center" spacing={3} sx={{ mt: 4 }}>
+                <Grid item xs={12} sm={4}>
+                  <Box sx={{ textAlign: 'center' }}>
+                    <Avatar
+                      sx={{
+                        width: 80,
+                        height: 80,
+                        mx: 'auto',
+                        mb: 2,
+                        background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                        color: 'white'
+                      }}
+                    >
+                      <GrProjects size={40} />
+                    </Avatar>
+                    <Typography variant="h3" sx={{ fontWeight: 700, mb: 1 }}>
+                      +20
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Projects
+                    </Typography>
+                  </Box>
+                </Grid>
+                
+                <Grid item xs={12} sm={4}>
+                  <Box sx={{ textAlign: 'center' }}>
+                    <Avatar
+                      sx={{
+                        width: 80,
+                        height: 80,
+                        mx: 'auto',
+                        mb: 2,
+                        background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                        color: 'white'
+                      }}
+                    >
+                      <FaGithub size={40} />
+                    </Avatar>
+                    <Typography variant="h3" sx={{ fontWeight: 700, mb: 1 }}>
+                      +75
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      GitHub Repos
+                    </Typography>
+                  </Box>
+                </Grid>
+                
+                <Grid item xs={12} sm={4}>
+                  <Box sx={{ textAlign: 'center' }}>
+                    <Avatar
+                      sx={{
+                        width: 80,
+                        height: 80,
+                        mx: 'auto',
+                        mb: 2,
+                        background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                        color: 'white'
+                      }}
+                    >
+                      <FaUsers size={40} />
+                    </Avatar>
+                    <Typography variant="h3" sx={{ fontWeight: 700, mb: 1 }}>
+                      +25
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Clients
+                    </Typography>
+                  </Box>
+                </Grid>
+              </Grid>
+            </Paper>
+          </motion.div>
 
-        {/* Tools Experts Section with Icons */}
-        <div className="mb-5">
-          <h3 className="h3 mb-4">TOOLS EXPERTS</h3>
-          <div className="row">
-            {tools.map((tool, index) => (
-              <div className="col-md-3 col-6 mb-4" key={index}>
-                <div className="d-flex align-items-center gap-3">
-                  {tool.icon}
-                  <span className="font-weight-bold">{tool.name}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="mb-5">
-          <h3 className="h3 mb-4 d-flex align-items-center gap-2">
-            <FaBriefcase className='text-primary' /> Work Experience
-          </h3>
-          <div className="card shadow-sm mb-4">
-            <div className="card-body">
-              <h4 className="card-title h5">{experience.position}</h4>
-              <h6 className="card-subtitle mb-3 text-muted">
-                {experience.institution} | {experience.startDate} - {experience.endDate}
-              </h6>
-              <ul className="list-unstyled">
-                {experience.description.map((item, index) => (
-                  <li key={index} className="mb-2">
-                    <i className="bi bi-check2-circle text-primary me-2"></i>
-                    {item}
-                  </li>
+          {/* Tools Experts Section */}
+          <motion.div variants={itemVariants}>
+            <Paper
+              elevation={isDark ? 0 : 2}
+              sx={{
+                p: 4,
+                mb: 6,
+                borderRadius: 3,
+                background: isDark ? 'background.paper' : 'background.paper',
+                border: isDark ? '1px solid' : 'none',
+                borderColor: 'divider'
+              }}
+            >
+              <Typography variant="h4" sx={{ mb: 4, fontWeight: 600 }}>
+                TOOLS EXPERTS
+              </Typography>
+              
+              <Grid container spacing={2}>
+                {tools.map((tool, index) => (
+                  <Grid item xs={6} sm={4} md={3} key={index} sx={{ display: 'flex' }}>
+                    <motion.div
+                      variants={cardVariants}
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.2 }}
+                      style={{ width: '100%' }}
+                    >
+                      <Card
+                        sx={{
+                          p: 2,
+                          width: '100%',
+                          height: '100%',
+                          textAlign: 'center',
+                          // background: isDark ? 'background.card' : 'background.card',
+                          background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                          border: '1px solid',
+                          borderColor: 'divider',
+                          '&:hover': {
+                            boxShadow: theme.shadows[8],
+                            transform: 'translateY(-4px)'
+                          },
+                          transition: 'all 0.3s ease'
+                        }}
+                      >
+                        <Box sx={{ 
+                          background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                          backgroundClip: 'text',
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                          mb: 1 
+                        }}>
+                          {tool.icon}
+                        </Box>
+                        <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                          {tool.name}
+                        </Typography>
+                      </Card>
+                    </motion.div>
+                  </Grid>
                 ))}
-              </ul>
-            </div>
-          </div>
-        </div>
+              </Grid>
+            </Paper>
+          </motion.div>
 
-        <div>
-          <h3 className="h3 mb-4 d-flex align-items-center gap-2">
-            <FaGraduationCap className='text-primary' /> Education
-          </h3>
-          <div className="card shadow-sm">
-            <div className="card-body">
-              <h4 className="card-title h5">{education.position}</h4>
-              <h6 className="card-subtitle mb-3 text-muted">
-                {education.institution} | {education.startDate} - {education.endDate}
-              </h6>
-              <ul className="list-unstyled">
-                {education.description.map((item, index) => (
-                  <li key={index} className="mb-2">
-                    <i className="bi bi-check2-circle text-primary me-2"></i>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    </div>
+          {/* Work Experience */}
+          <motion.div variants={itemVariants}>
+            <Paper
+              elevation={isDark ? 0 : 2}
+              sx={{
+                p: 4,
+                mb: 6,
+                borderRadius: 3,
+                background: isDark ? 'background.paper' : 'background.paper',
+                border: isDark ? '1px solid' : 'none',
+                borderColor: 'divider'
+              }}
+            >
+              <Typography variant="h4" sx={{ mb: 4, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 2 }}>
+                <FaBriefcase style={{ 
+                  background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent'
+                }} />
+                Work Experience
+              </Typography>
+              
+              {experiences.map((experience, index) => (
+                <motion.div
+                  key={index}
+                  variants={cardVariants}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Card
+                    sx={{
+                      mb: 3,
+                      background: isDark ? 'background.card' : 'background.card',
+                      border: '1px solid',
+                      borderColor: 'divider',
+                      '&:hover': {
+                        boxShadow: theme.shadows[8],
+                        transform: 'translateY(-2px)'
+                      },
+                      transition: 'all 0.3s ease'
+                    }}
+                  >
+                    <CardContent>
+                      <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
+                        {experience.position}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                        {experience.institution} | {experience.startDate} - {experience.endDate}
+                      </Typography>
+                      <Box component="ul" sx={{ pl: 0, m: 0 }}>
+                        {experience.description.map((item, itemIndex) => (
+                          <Box
+                            component="li"
+                            key={itemIndex}
+                            sx={{
+                              display: 'flex',
+                              alignItems: 'flex-start',
+                              mb: 1,
+                              listStyle: 'none',
+                              '&::before': {
+                                content: '""',
+                                width: 8,
+                                height: 8,
+                                borderRadius: '50%',
+                                background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                                mr: 2,
+                                mt: 0.7,
+                                flexShrink: 0
+                              }
+                            }}
+                          >
+                            <Typography variant="body2">
+                              {item}
+                            </Typography>
+                          </Box>
+                        ))}
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </Paper>
+          </motion.div>
+
+          {/* Education */}
+          <motion.div variants={itemVariants}>
+            <Paper
+              elevation={isDark ? 0 : 2}
+              sx={{
+                p: 4,
+                borderRadius: 3,
+                background: isDark ? 'background.paper' : 'background.paper',
+                border: isDark ? '1px solid' : 'none',
+                borderColor: 'divider'
+              }}
+            >
+              <Typography variant="h4" sx={{ mb: 4, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 2 }}>
+                <FaGraduationCap style={{ 
+                  background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent'
+                }} />
+                Education
+              </Typography>
+              
+              <motion.div
+                variants={cardVariants}
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Card
+                  sx={{
+                    background: isDark ? 'background.card' : 'background.card',
+                    border: '1px solid',
+                    borderColor: 'divider',
+                    '&:hover': {
+                      boxShadow: theme.shadows[8],
+                      transform: 'translateY(-2px)'
+                    },
+                    transition: 'all 0.3s ease'
+                  }}
+                >
+                  <CardContent>
+                    <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
+                      {education.position}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                      {education.institution} | {education.startDate} - {education.endDate}
+                    </Typography>
+                    <Box component="ul" sx={{ pl: 0, m: 0 }}>
+                      {education.description.map((item, index) => (
+                        <Box
+                          component="li"
+                          key={index}
+                          sx={{
+                            display: 'flex',
+                            alignItems: 'flex-start',
+                            mb: 1,
+                            listStyle: 'none',
+                            '&::before': {
+                              content: '""',
+                              width: 8,
+                              height: 8,
+                              borderRadius: '50%',
+                              background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                              mr: 2,
+                              mt: 0.7,
+                              flexShrink: 0
+                            }
+                          }}
+                        >
+                          <Typography variant="body2">
+                            {item}
+                          </Typography>
+                        </Box>
+                      ))}
+                    </Box>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </Paper>
+          </motion.div>
+        </motion.div>
+      </Container>
+    </Box>
   );
 };
 

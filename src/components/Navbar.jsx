@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { 
   AppBar, 
   Toolbar, 
@@ -9,13 +9,18 @@ import {
   Menu, 
   MenuItem, 
   useMediaQuery,
-  useTheme
+  useTheme,
+  Tooltip
 } from '@mui/material';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import MenuIcon from '@mui/icons-material/Menu';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { ThemeContext } from '../App';
 
-const Navbar = ({ mode, toggleMode }) => {
+const Navbar = () => {
+  const { mode, toggleMode, isDark } = useContext(ThemeContext);
   const location = useLocation();
   const currentPath = location.pathname;
   const theme = useTheme();
@@ -40,11 +45,19 @@ const Navbar = ({ mode, toggleMode }) => {
   };
 
   return (
-    <AppBar position="sticky" elevation={0} color="default" sx={{ 
-      background: 'background.paper', 
-      boxShadow: 'none', 
-      borderBottom: (theme) => `1px solid ${theme.palette.divider}` 
-    }}>
+    <AppBar 
+      position="sticky" 
+      elevation={0} 
+      color="default" 
+      className={isDark ? 'dark' : ''}
+      sx={{ 
+        background: 'background.paper', 
+        boxShadow: 'none', 
+        borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
+        backdropFilter: 'blur(20px)',
+        transition: 'all 0.3s ease'
+      }}
+    >
       <Toolbar>
         <Typography
           variant="h4"
@@ -52,16 +65,32 @@ const Navbar = ({ mode, toggleMode }) => {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          sx={{ flexGrow: 1, fontWeight: 800 }}
+          sx={{ 
+            flexGrow: 1, 
+            fontWeight: 800,
+            '& a': {
+              background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              textDecoration: 'none',
+              transition: 'color 0.3s ease',
+              '&:hover': {
+                background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent'
+              }
+            }
+          }}
         >
-          <RouterLink to="/" className='nav-link'>
-          Belal Zeina
+          <RouterLink to="/">
+            Belal Zeina
           </RouterLink>
-
         </Typography>
 
         {!isMobile && (
-          <Box>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             {navItems.map((item) => (
               <Button
                 key={item.name}
@@ -69,30 +98,76 @@ const Navbar = ({ mode, toggleMode }) => {
                 to={item.path}
                 color="inherit"
                 sx={{ 
-                  mx: 1, 
+                  mx: 0.5, 
                   fontWeight: 500,
-                  color: currentPath === item.path ? 'primary.main' : 'inherit',
+                  color: currentPath === item.path ? 'primary.main' : 'text.primary',
+                  transition: 'all 0.3s ease',
                   '&:hover': {
-                    color: 'primary.main'
+                    background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    transform: 'translateY(-1px)'
                   }
                 }}
               >
                 {item.name}
               </Button>
             ))}
+            
+            <Tooltip title={`Switch to ${isDark ? 'light' : 'dark'} mode`}>
+              <IconButton
+                onClick={toggleMode}
+                color="inherit"
+                sx={{
+                  ml: 2,
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    transform: 'rotate(180deg)',
+                    background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent'
+                  }
+                }}
+              >
+                {isDark ? <Brightness7Icon /> : <Brightness4Icon />}
+              </IconButton>
+            </Tooltip>
           </Box>
         )}
 
         {isMobile && (
-          <IconButton
-            size="large"
-            edge="end"
-            color="inherit"
-            aria-label="menu"
-            onClick={handleMenuOpen}
-          >
-            <MenuIcon />
-          </IconButton>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Tooltip title={`Switch to ${isDark ? 'light' : 'dark'} mode`}>
+              <IconButton
+                onClick={toggleMode}
+                color="inherit"
+                sx={{
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    transform: 'rotate(180deg)',
+                    background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent'
+                  }
+                }}
+              >
+                {isDark ? <Brightness7Icon /> : <Brightness4Icon />}
+              </IconButton>
+            </Tooltip>
+            
+            <IconButton
+              size="large"
+              edge="end"
+              color="inherit"
+              aria-label="menu"
+              onClick={handleMenuOpen}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Box>
         )}
 
         <Menu
@@ -109,6 +184,16 @@ const Navbar = ({ mode, toggleMode }) => {
           }}
           open={open}
           onClose={handleMenuClose}
+          PaperProps={{
+            sx: {
+              mt: 1,
+              minWidth: 200,
+              borderRadius: 2,
+              boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
+              border: '1px solid',
+              borderColor: 'divider',
+            }
+          }}
         >
           {navItems.map((item) => (
             <MenuItem
@@ -118,7 +203,15 @@ const Navbar = ({ mode, toggleMode }) => {
               onClick={handleMenuClose}
               sx={{
                 color: currentPath === item.path ? 'primary.main' : 'text.primary',
-                fontWeight: currentPath === item.path ? 600 : 400
+                fontWeight: currentPath === item.path ? 600 : 400,
+                transition: 'all 0.2s ease',
+                '&:hover': {
+                  backgroundColor: 'action.hover',
+                  background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent'
+                }
               }}
             >
               {item.name}
@@ -130,4 +223,4 @@ const Navbar = ({ mode, toggleMode }) => {
   );
 };
 
-export default Navbar; // Make sure this default export exists
+export default Navbar;

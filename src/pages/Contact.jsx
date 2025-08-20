@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async'; // Install: `npm install react-helmet-async`
+import { Typography } from '@mui/material';
 
 import { FaFacebook, FaGithub, FaLinkedin, FaWhatsapp, FaPhone } from 'react-icons/fa';
 
@@ -53,13 +54,26 @@ const Contact = () => (
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-    <h2 className="display-4 text-center mb-5 fw-bold">
-      CONTACT ME
-    </h2>
+        <Typography
+              variant="h2"
+              sx={{
+                textAlign: 'center',
+                mb: 6,
+                fontWeight: 800,
+                background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent'
+              }}
+            >
+              CONTACT ME
+        </Typography>
+
     <div className="row g-4 justify-content-center">
       {contactMethods.slice(0, 2).map((method, idx) => (
         <div className="col-12 col-md-6" key={idx}>
-          <div className="card h-100 border-2 border-light shadow-sm">
+          <div className="card h-100  shadow-sm"   style={{
+              background: 'linear-gradient(45deg, #64b5f6, #f48fb1)'}}>
             <div className="card-body text-center d-flex flex-column align-items-center gap-2 pt-4">
               {method.icon}
               <h3 className="h5 fw-bold mt-2">{method.title}</h3>
@@ -78,7 +92,8 @@ const Contact = () => (
       ))}
       {contactMethods.slice(2, 4).map((method, idx) => (
         <div className="col-12 col-md-6" key={idx+2}>
-          <div className="card h-100 border-2 border-light shadow-sm">
+          <div className="card h-100   shadow-sm"   style={{
+              background: 'linear-gradient(45deg, #64b5f6, #f48fb1)'}}>
             <div className="card-body text-center d-flex flex-column align-items-center gap-2 pt-4">
               {method.icon}
               <h3 className="h5 fw-bold mt-2">{method.title}</h3>
@@ -96,7 +111,8 @@ const Contact = () => (
         </div>
       ))}
       <div className="col-12">
-        <div className="card border-2 border-light shadow-sm">
+        <div className="card   shadow-sm"   style={{
+              background: 'linear-gradient(45deg, #64b5f6, #f48fb1)'}}>
           <div className="card-body text-center d-flex flex-column align-items-center gap-2 pt-4">
             {contactMethods[4].icon}
             <h3 className="h5 fw-bold mt-2">{contactMethods[4].title}</h3>
