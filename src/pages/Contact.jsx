@@ -2,10 +2,17 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async'; // Install: `npm install react-helmet-async`
 import { Typography } from '@mui/material';
+import {  useContext } from 'react';
 
 import { FaFacebook, FaGithub, FaLinkedin, FaWhatsapp, FaPhone } from 'react-icons/fa';
+import { ThemeContext } from '../App';
 
-const contactMethods = [
+
+
+const Contact = () => {
+
+  const { isDark } = useContext(ThemeContext);
+  const contactMethods = [
   {
     icon: <FaFacebook size={40} className="text-primary" />,
     title: 'Belal Zeina',
@@ -14,7 +21,7 @@ const contactMethods = [
     link: 'https://www.facebook.com/people/Belal-Zeina/pfbid0Kv6C7yRLXzV9rSmF3unkGsN8c29HbjwmWQSD1fD8Y9jJLnYSwwXXW9XN1Wp6tVJEl/',
   },
   {
-    icon: <FaGithub size={40} className="text-dark" />,
+    icon: <FaGithub size={40} className={isDark ? 'text-white' : 'text-dark'} />,
     title: 'Belal Zeina',
     description: 'Explore my code on GitHub! 💻',
     linkText: 'GitHub Profile',
@@ -42,8 +49,7 @@ const contactMethods = [
     link: 'tel:+201096685149',
   },
 ];
-
-const Contact = () => (
+  return (
   <div className="container py-5">
     <Helmet>
       <title>Belal Zeina | contact</title>
@@ -73,16 +79,23 @@ const Contact = () => (
       {contactMethods.slice(0, 2).map((method, idx) => (
         <div className="col-12 col-md-6" key={idx}>
           <div className="card h-100  shadow-sm"   style={{
-              background: 'linear-gradient(45deg, #64b5f6, #f48fb1)'}}>
-            <div className="card-body text-center d-flex flex-column align-items-center gap-2 pt-4">
+                background: isDark ? 'rgb(26, 26, 26)' : '#fff'
+              }}>
+            <div className={`card-body text-center d-flex flex-column align-items-center gap-2 pt-4 ${
+                isDark ? 'text-white' : 'text-dark'
+              }`}>
               {method.icon}
               <h3 className="h5 fw-bold mt-2">{method.title}</h3>
-              <p className="text-muted mb-2">{method.description}</p>
+              <p className="mb-2">{method.description}</p>
               <a 
                 href={method.link} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="text-primary text-decoration-none fw-medium"
+                style={{    background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent'}}
+                className="text-decoration-none fw-medium"
               >
                 {method.linkText}
               </a>
@@ -92,17 +105,24 @@ const Contact = () => (
       ))}
       {contactMethods.slice(2, 4).map((method, idx) => (
         <div className="col-12 col-md-6" key={idx+2}>
-          <div className="card h-100   shadow-sm"   style={{
-              background: 'linear-gradient(45deg, #64b5f6, #f48fb1)'}}>
-            <div className="card-body text-center d-flex flex-column align-items-center gap-2 pt-4">
+          <div className="card h-100   shadow-sm"     style={{
+                background: isDark ? 'rgb(26, 26, 26)' : '#fff'
+              }}>
+            <div className={`card-body text-center d-flex flex-column align-items-center gap-2 pt-4 ${
+                isDark ? 'text-white' : 'text-dark'
+              }`}>
               {method.icon}
               <h3 className="h5 fw-bold mt-2">{method.title}</h3>
-              <p className="text-muted mb-2">{method.description}</p>
+              <p className="text-sm mb-2">{method.description}</p>
               <a 
                 href={method.link} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="text-primary text-decoration-none fw-medium"
+                style={{    background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent'}}
+                className="text-decoration-none fw-medium"
               >
                 {method.linkText}
               </a>
@@ -111,17 +131,24 @@ const Contact = () => (
         </div>
       ))}
       <div className="col-12">
-        <div className="card   shadow-sm"   style={{
-              background: 'linear-gradient(45deg, #64b5f6, #f48fb1)'}}>
-          <div className="card-body text-center d-flex flex-column align-items-center gap-2 pt-4">
+        <div className="card   shadow-sm"     style={{
+                background: isDark ? 'rgb(26, 26, 26)' : '#fff'
+              }}>
+          <div className={`card-body text-center d-flex flex-column align-items-center gap-2 pt-4 ${
+                isDark ? 'text-white' : 'text-dark'
+              }`}>
             {contactMethods[4].icon}
             <h3 className="h5 fw-bold mt-2">{contactMethods[4].title}</h3>
-            <p className="text-muted mb-2">{contactMethods[4].description}</p>
+            <p className="text-small mb-2">{contactMethods[4].description}</p>
             <a 
               href={contactMethods[4].link} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="text-primary text-decoration-none fw-medium"
+              style={{    background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent'}}
+              className="text-decoration-none fw-medium"
             >
               {contactMethods[4].linkText}
             </a>
@@ -131,6 +158,7 @@ const Contact = () => (
     </div>
     </motion.div>
   </div>
-);
+  );
+};
 
 export default Contact;

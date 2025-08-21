@@ -67,6 +67,7 @@ const Navbar = () => {
           transition={{ duration: 0.5 }}
           sx={{ 
             flexGrow: 1, 
+            marginLeft: "1rem",
             fontWeight: 800,
             '& a': {
               background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
@@ -92,27 +93,31 @@ const Navbar = () => {
         {!isMobile && (
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             {navItems.map((item) => (
-              <Button
+              <RouterLink
                 key={item.name}
-                component={RouterLink}
                 to={item.path}
-                color="inherit"
-                sx={{ 
-                  mx: 0.5, 
+                style={{
+                  textDecoration: 'none',
+                  margin: '0 8px',
                   fontWeight: 500,
-                  color: currentPath === item.path ? 'primary.main' : 'text.primary',
+                  color: currentPath === item.path ? theme.palette.primary.main : theme.palette.text.primary,
                   transition: 'all 0.3s ease',
-                  '&:hover': {
-                    background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
-                    backgroundClip: 'text',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    transform: 'translateY(-1px)'
-                  }
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundImage = 'linear-gradient(45deg, #64b5f6, #f48fb1)';
+                  e.target.style.backgroundClip = 'text';
+                  e.target.style.webkitBackgroundClip = 'text';
+                  e.target.style.webkitTextFillColor = 'transparent';
+                  e.target.style.transform = 'translateY(-1px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundImage = 'none';
+                  e.target.style.webkitTextFillColor = 'initial';
+                  e.target.style.transform = 'translateY(0)';
                 }}
               >
                 {item.name}
-              </Button>
+              </RouterLink>
             ))}
             
             <Tooltip title={`Switch to ${isDark ? 'light' : 'dark'} mode`}>
