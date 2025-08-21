@@ -313,7 +313,7 @@ const About = () => {
                 TOOLS EXPERTS
               </Typography>
               {/* Category Filter Buttons */}
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mb: 4 }}>
+              <Box sx={{ justifyContent:"center", display: 'flex', flexWrap: 'wrap', gap: 2, mb: 4 }}>
                 {toolCategories.map(cat => (
                   <Chip
                     key={cat.key}
@@ -335,7 +335,7 @@ const About = () => {
                 ))}
               </Box>
               {/* Tools Grid */}
-              <Grid container spacing={2}>
+              <Grid container spacing={2}  justifyContent="center" >
                 {filteredTools.map((tool, index) => (
                   <Grid item xs={12} sm={6} md={3} key={index} sx={{ display: 'flex' }}>
                     <motion.div
@@ -347,7 +347,7 @@ const About = () => {
                       <Card
                         sx={{
                           p: 2,
-                          width: '100%',
+                          width: '120px',
                           height: '100%',
                           textAlign: 'center',
                           // background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',

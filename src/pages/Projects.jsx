@@ -38,7 +38,7 @@ const Projects = () => {
       id: 3,
       name: 'Seazera',
       image: 'images/seazera-1.png',
-      url: "https://seazera.softwareconnect.net/",
+      url: "https://seazera.ashraf.zone/",
       technologies: [ 'Laravel',"Livewire", 'MySQL'],
     },
     {

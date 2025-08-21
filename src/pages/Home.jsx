@@ -60,7 +60,8 @@ const Home = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="min-vh-100 d-flex align-items-center py-5"  style={{background: isDark ? 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)' : 'linear-gradient(135deg, #fafafa 0%, #e3f2fd 100%)'}}>
+      {/* linear-gradient(45deg, #64b5f6, #f48fb1) */}
+      <section className="min-vh-100 d-flex align-items-center py-5"  style={{background: isDark ? 'linear-gradient(135deg, rgb(8 42 119) 0%, rgb(244, 143, 177) 100%)' : 'linear-gradient(135deg, #fafafa 0%, #e3f2fd 100%)'}}>
         <div className="container">
           <div className="row align-items-center">
             {/* Image Section - show first on mobile */}
@@ -75,7 +76,7 @@ const Home = () => {
                   style={{ maxWidth: '350px' }}
                 >
                   <img
-                    src="images/profile.jpg"
+                    src="images/profile-img-removebg-preview.png"
                     alt="Belal Zeina"
                     className="img-fluid w-100 rounded-4"
                     style={{ objectFit: 'cover', height: 'auto', maxHeight: '450px' }}

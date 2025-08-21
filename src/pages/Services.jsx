@@ -1,7 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async'; // Install: `npm install react-helmet-async`
-import { Typography} from '@mui/material';
+import { Typography,useTheme} from '@mui/material';
+import { useContext } from 'react';
+import { ThemeContext } from '../App';
 import { 
     FaCode, 
     FaPalette, 
@@ -11,6 +13,8 @@ import {
     FaCogs 
   } from 'react-icons/fa';
 const Services = () => {
+  const { isDark } = useContext(ThemeContext);
+  const theme = useTheme();
     const services = [
         {
           icon: <FaCode size={48} className='text-dark' />,
@@ -78,9 +82,9 @@ const Services = () => {
           {services.map((service, index) => (
             <div key={index} className="col-md-6 col-lg-4">
               <div className="card h-100 border-0 shadow-sm p-4" style={{ background: 'linear-gradient(45deg, #64b5f6, #f48fb1)' }}>
-                <div className="fs-1 mb-3">{service.icon}</div>
-                <h3 className="h5 fw-bold">{service.title}</h3>
-                <p className="text-muted">{service.description}</p>
+                <div className={`fs-1 mb-3 ${isDark? "text-white":"text-dark"}`}>{service.icon}</div>
+                <h3 className={`h5 fw-bold ${isDark? "text-white":"text-dark"}`}>{service.title}</h3>
+                <p className={` ${isDark? "text-white":"text-dark"}`}>{service.description}</p>
               </div>
             </div>
           ))}
