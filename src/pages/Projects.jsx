@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { Helmet } from 'react-helmet-async'; // Install: `npm install react-helmet-async`
-import { Typography, Button} from '@mui/material';
+import { Typography, Button, Pagination, Box } from '@mui/material';
 
 const Projects = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const projectsPerPage = 6; // Adjust this number as needed
+
   const projects = [
     {
       id: 17,
@@ -62,7 +65,7 @@ const Projects = () => {
       url: "https://hassanfaragimportexport.com/",
       technologies: [ 'Laravel', 'MySQL'],
     },
-        {
+    {
       id: 9,
       name: 'e-menu',
       image: 'images/66d9e0f4602e9_project_image_1719919820.png',
@@ -125,8 +128,68 @@ const Projects = () => {
       url: 'https://helnt.com/',
       technologies: ['React', 'Laravel', 'MySQL'],
     },
-
   ];
+
+  // Calculate pagination values
+  const totalPages = Math.ceil(projects.length / projectsPerPage);
+  const startIndex = (currentPage - 1) * projectsPerPage;
+  const endIndex = startIndex + projectsPerPage;
+  
+  // Get current projects to display
+  const currentProjects = useMemo(() => {
+    return projects.slice(startIndex, endIndex);
+  }, [projects, startIndex, endIndex]);
+
+  // Handle page change
+  const handlePageChange = (event, page) => {
+    setCurrentPage(page);
+  };
+
+  // Custom pagination controls (alternative to MUI Pagination)
+  const PaginationControls = () => (
+    <div className="d-flex justify-content-center align-items-center gap-3 mt-5">
+      <button
+        className={`btn ${currentPage === 1 ? 'btn-outline-secondary' : 'btn-outline-primary'}`}
+        disabled={currentPage === 1}
+        onClick={() => handlePageChange(null, currentPage - 1)}
+      >
+        <FaChevronLeft className="me-1" />
+        Previous
+      </button>
+      
+      <div className="d-flex gap-2">
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index + 1}
+            className={`btn ${
+              currentPage === index + 1
+                ? 'btn-primary'
+                : 'btn-outline-primary'
+            }`}
+            onClick={() => handlePageChange(null, index + 1)}
+            style={{
+              minWidth: '40px',
+              ...(currentPage === index + 1 && {
+                background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                borderColor: 'transparent'
+              })
+            }}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
+
+      <button
+        className={`btn ${currentPage === totalPages ? 'btn-outline-secondary' : 'btn-outline-primary'}`}
+        disabled={currentPage === totalPages}
+        onClick={() => handlePageChange(null, currentPage + 1)}
+      >
+        Next
+        <FaChevronRight className="ms-1" />
+      </button>
+    </div>
+  );
 
   return (
     <div className="container py-5">
@@ -139,98 +202,146 @@ const Projects = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-            <Typography
-              variant="h2"
-              sx={{
-                textAlign: 'center',
-                mb: 6,
-                fontWeight: 800,
-                background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
-              }}
-            >
-              MY RECENT COMPLETED PROJECTS
-            </Typography>
+        <Typography
+          variant="h2"
+          sx={{
+            textAlign: 'center',
+            mb: 4,
+            fontWeight: 800,
+            background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+            backgroundClip: 'text',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent'
+          }}
+        >
+          MY RECENT COMPLETED PROJECTS
+        </Typography>
 
-        <div className="row g-4">
-          {projects.map((project) => (
-            <div key={project.id} className="col-12 col-sm-6 col-md-4">
-              <motion.div
-                whileHover={{ y: -10 }}
-                transition={{ duration: 0.3 }}
-                className="card h-100 shadow-sm border-0 bg-light bg-opacity-10"
-              >
-                <img
-                  src={project.image}
-                  alt={project.name}
-                  className="card-img-top"
-                  style={{ height: '200px', objectFit: 'cover' }}
-                />
-                <div className="card-body">
-                  <h3 className="h5 fw-bold"   style={{
-                      background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent'
-                    }}>
-                      {project.name}
-                  </h3>
-                  <div className="d-flex flex-wrap gap-2 mt-3">
-                    {project.technologies.map((tech, index) => (
-                      <span
-                        key={index}
-                        style={{background: 'linear-gradient(45deg, #64b5f6, #f48fb1)'}}
-                        className="badge  bg-opacity-10 text-dark"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                {project.url && (
-                  <div className="card-footer bg-transparent border-0 d-flex gap-2">
-                                      
-                    <Button
-                      href={project.url}
-                      variant="outlined"
-                      target="_blank"
-                      size="small"
-                      sx={{
-                        px: 2,
-                        padding: .3,
-                        marginBottom: 1,
-                        borderColor: '#64b5f6',
-                        color: '#64b5f6',
-                        '&:hover': {
-                          transform: 'translateY(-3px)',
-                          borderWidth: 2,
-                          background: 'linear-gradient(45deg, rgba(100, 181, 246, 0.1), rgba(244, 143, 177, 0.1))',
-                          borderColor: '#f48fb1'
-                        }
+
+
+        {/* Projects Grid */}
+        <motion.div
+          key={currentPage} // This will trigger animation when page changes
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="row g-4">
+            {currentProjects.map((project, index) => (
+              <div key={project.id} className="col-12 col-sm-6 col-md-4">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ 
+                    duration: 0.5, 
+                    delay: index * 0.1 // Stagger animation
+                  }}
+                  whileHover={{ y: -10 }}
+                  className="card h-100 shadow-sm border-0 bg-light bg-opacity-10"
+                >
+                  <img
+                    src={project.image}
+                    alt={project.name}
+                    className="card-img-top"
+                    style={{ height: '200px', objectFit: 'cover' }}
+                  />
+                  <div className="card-body">
+                    <h3 
+                      className="h5 fw-bold"   
+                      style={{
+                        background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent'
                       }}
                     >
-                      <FaExternalLinkAlt className="ms-1 me-1" />
-                      <span className='me-1'>Visit Project</span>
-                    </Button>
-                    {/* <a
-                      href={project.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn btn-sm btn-outline-primary"
-                    >
-                      <FaGithub className="me-1" />
-                      View Code
-                    </a> */}
+                      {project.name}
+                    </h3>
+                    <div className="d-flex flex-wrap gap-2 mt-3">
+                      {project.technologies.map((tech, techIndex) => (
+                        <span
+                          key={techIndex}
+                          style={{background: 'linear-gradient(45deg, #64b5f6, #f48fb1)'}}
+                          className="badge bg-opacity-10 text-dark"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                )}
-              </motion.div>
-            </div>
-          ))}
+                  {project.url && (
+                    <div className="card-footer bg-transparent border-0 d-flex gap-2">
+                      <Button
+                        href={project.url}
+                        variant="outlined"
+                        target="_blank"
+                        size="small"
+                        sx={{
+                          px: 2,
+                          padding: .3,
+                          marginBottom: 1,
+                          borderColor: '#64b5f6',
+                          color: '#64b5f6',
+                          '&:hover': {
+                            transform: 'translateY(-3px)',
+                            borderWidth: 2,
+                            background: 'linear-gradient(45deg, rgba(100, 181, 246, 0.1), rgba(244, 143, 177, 0.1))',
+                            borderColor: '#f48fb1'
+                          }
+                        }}
+                      >
+                        <FaExternalLinkAlt className="ms-1 me-1" />
+                        <span className='me-1'>Visit Project</span>
+                      </Button>
+                    </div>
+                  )}
+                </motion.div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Pagination Controls - Choose one of these options */}
+        
+        {/* Option 1: Custom Bootstrap-styled pagination */}
+        {/* <PaginationControls /> */}
+
+        {/* Option 2: Material-UI Pagination (uncomment to use this instead) */}
+        
+        <Box display="flex" justifyContent="center" mt={4}>
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={handlePageChange}
+            color="primary"
+            size="large"
+            sx={{
+              '& .MuiPaginationItem-root': {
+                background: 'linear-gradient(45deg, rgba(100, 181, 246, 0.1), rgba(244, 143, 177, 0.1))',
+                border: '1px solid #64b5f6',
+                '&:hover': {
+                  background: 'linear-gradient(45deg, rgba(100, 181, 246, 0.2), rgba(244, 143, 177, 0.2))',
+                },
+                '&.Mui-selected': {
+                  background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
+                  color: 'white',
+                  '&:hover': {
+                    background: 'linear-gradient(45deg, #42a5f5, #f06292)',
+                  }
+                }
+              }
+            }}
+          />
+        </Box>
+              {/* Projects count and page info */}
+        <div className="text-center mt-2 ">
+          <small className="">
+            Showing {startIndex + 1}-{Math.min(endIndex, projects.length)} of {projects.length} projects
+            (Page {currentPage} of {totalPages})
+          </small>
         </div>
       </motion.div>
     </div>
   );
 };
 
-export default Projects; 
+export default Projects;
