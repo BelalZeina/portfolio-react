@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { FaExternalLinkAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { Helmet } from 'react-helmet-async'; // Install: `npm install react-helmet-async`
@@ -143,56 +143,17 @@ const Projects = () => {
   // Handle page change
   const handlePageChange = (event, page) => {
     setCurrentPage(page);
+    // Scroll to the projects grid
+    const projectsGrid = document.querySelector('.projects-grid');
+    if (projectsGrid) {
+      projectsGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
-  // Custom pagination controls (alternative to MUI Pagination)
-  const PaginationControls = () => (
-    <div className="d-flex justify-content-center align-items-center gap-3 mt-5">
-      <button
-        className={`btn ${currentPage === 1 ? 'btn-outline-secondary' : 'btn-outline-primary'}`}
-        disabled={currentPage === 1}
-        onClick={() => handlePageChange(null, currentPage - 1)}
-      >
-        <FaChevronLeft className="me-1" />
-        Previous
-      </button>
-      
-      <div className="d-flex gap-2">
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index + 1}
-            className={`btn ${
-              currentPage === index + 1
-                ? 'btn-primary'
-                : 'btn-outline-primary'
-            }`}
-            onClick={() => handlePageChange(null, index + 1)}
-            style={{
-              minWidth: '40px',
-              ...(currentPage === index + 1 && {
-                background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
-                borderColor: 'transparent'
-              })
-            }}
-          >
-            {index + 1}
-          </button>
-        ))}
-      </div>
 
-      <button
-        className={`btn ${currentPage === totalPages ? 'btn-outline-secondary' : 'btn-outline-primary'}`}
-        disabled={currentPage === totalPages}
-        onClick={() => handlePageChange(null, currentPage + 1)}
-      >
-        Next
-        <FaChevronRight className="ms-1" />
-      </button>
-    </div>
-  );
 
   return (
-    <div className="container py-5">
+    <div className="container py-5 projects-grid">
       <Helmet>
         <title>Belal Zeina | Projects</title>
         <meta name="description" content="Learn about Belal Zeina's web development projects." />
@@ -225,6 +186,7 @@ const Projects = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
+          
         >
           <div className="row g-4">
             {currentProjects.map((project, index) => (
@@ -333,7 +295,7 @@ const Projects = () => {
           />
         </Box>
               {/* Projects count and page info */}
-        <div className="text-center mt-2 ">
+        <div className="text-center mt-3">
           <small className="">
             Showing {startIndex + 1}-{Math.min(endIndex, projects.length)} of {projects.length} projects
             (Page {currentPage} of {totalPages})

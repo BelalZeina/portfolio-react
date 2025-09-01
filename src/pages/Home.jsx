@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import { Box, Container, Typography, Button, Grid, Paper } from '@mui/material';
+import { Box, Typography, Button} from '@mui/material';
 import { ThemeContext } from '../App';
 import About from './About';
 import Projects from './Projects';
@@ -11,18 +11,6 @@ import Services from './Services';
 
 const Home = () => {
   const { isDark } = useContext(ThemeContext);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.2
-      }
-    }
-  };
-
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
@@ -32,28 +20,6 @@ const Home = () => {
         duration: 0.8,
         ease: "easeOut"
       }
-    }
-  };
-
-  const imageVariants = {
-    hidden: { opacity: 0, scale: 0.8, rotateY: -15 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      rotateY: 0,
-      transition: {
-        duration: 1,
-        ease: "easeOut"
-      }
-    }
-  };
-
-  const floatingAnimation = {
-    y: [0, -10, 0],
-    transition: {
-      duration: 3,
-      repeat: Infinity,
-      ease: "easeInOut"
     }
   };
 
