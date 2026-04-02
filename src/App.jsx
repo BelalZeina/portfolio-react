@@ -21,152 +21,87 @@ const getDesignTokens = (mode) => ({
   palette: {
     mode,
     primary: {
-      main: '#64b5f6',
-      light: '#90caf9',
-      dark: '#1976d2',
-      gradient: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
-      gradientLight: 'linear-gradient(45deg, #90caf9, #f8bbd9)',
-      gradientDark: 'linear-gradient(45deg, #1976d2, #c2185b)',
+      main: '#6366f1', // Indigo 500
+      light: '#818cf8',
+      dark: '#4f46e5',
+      contrastText: '#ffffff',
     },
     secondary: {
-      main: '#f48fb1',
-      light: '#f8bbd9',
-      dark: '#c2185b',
-      gradient: 'linear-gradient(45deg, #f48fb1, #64b5f6)',
+      main: '#ec4899', // Pink 500
+      light: '#f472b6',
+      dark: '#db2777',
     },
     background: {
-      default: mode === 'dark' ? '#0a0a0a' : '#fafafa',
-      paper: mode === 'dark' ? '#1a1a1a' : '#ffffff',
-      card: mode === 'dark' ? '#1e1e1e' : '#ffffff',
-      section: mode === 'dark' ? '#2a2a2a' : '#f5f5f5',
+      default: mode === 'dark' ? '#0f172a' : '#f8fafc', // Slate 900 / Slate 50
+      paper: mode === 'dark' ? '#1e293b' : '#ffffff', // Slate 800
+      glass: mode === 'dark' ? 'rgba(30, 41, 59, 0.7)' : 'rgba(255, 255, 255, 0.7)',
     },
     text: {
-      primary: mode === 'dark' ? '#ffffff' : '#1a1a1a',
-      secondary: mode === 'dark' ? 'rgba(255,255,255,0.7)' : '#666666',
-      muted: mode === 'dark' ? 'rgba(255,255,255,0.5)' : '#999999',
+      primary: mode === 'dark' ? '#f8fafc' : '#0f172a',
+      secondary: mode === 'dark' ? '#94a3b8' : '#475569',
     },
-    divider: mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
-    border: mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
+    divider: mode === 'dark' ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.06)',
   },
   typography: {
-    fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Inter", "system-ui", "-apple-system", sans-serif',
     h1: {
       fontWeight: 800,
-      fontSize: '3.5rem',
-      lineHeight: 1.2,
-      '@media (max-width:600px)': {
-        fontSize: '2.5rem',
-      },
+      letterSpacing: '-0.02em',
+      lineHeight: 1.1,
     },
     h2: {
       fontWeight: 700,
-      fontSize: '2.5rem',
-      lineHeight: 1.3,
-      '@media (max-width:600px)': {
-        fontSize: '2rem',
-      },
+      letterSpacing: '-0.01em',
+      lineHeight: 1.2,
     },
     h3: {
+      fontWeight: 700,
+      letterSpacing: '-0.01em',
+    },
+    button: {
       fontWeight: 600,
-      fontSize: '2rem',
-      lineHeight: 1.4,
-      '@media (max-width:600px)': {
-        fontSize: '1.75rem',
-      },
-    },
-    h4: {
-      fontWeight: 600,
-      fontSize: '1.5rem',
-      lineHeight: 1.4,
-    },
-    h5: {
-      fontWeight: 500,
-      fontSize: '1.25rem',
-      lineHeight: 1.4,
-    },
-    h6: {
-      fontWeight: 500,
-      fontSize: '1rem',
-      lineHeight: 1.4,
-    },
-    body1: {
-      fontSize: '1rem',
-      lineHeight: 1.6,
-    },
-    body2: {
-      fontSize: '0.875rem',
-      lineHeight: 1.6,
+      textTransform: 'none',
     },
   },
   shape: {
-    borderRadius: 16,
+    borderRadius: 20,
   },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
           borderRadius: 12,
-          textTransform: 'none',
-          fontWeight: 600,
-          padding: '12px 24px',
-          fontSize: '0.95rem',
+          padding: '10px 24px',
           transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
           '&:hover': {
             transform: 'translateY(-2px)',
-            boxShadow: '0 8px 25px rgba(0,0,0,0.15)',
+            boxShadow: '0 10px 20px -10px rgba(99, 102, 241, 0.5)',
           },
         },
-        contained: {
-          background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
-          color: 'white',
-          boxShadow: '0 4px 14px rgba(100, 181, 246, 0.3)',
+        containedPrimary: {
+          background: 'linear-gradient(135deg, #6366f1 0%, #a855f7 100%)',
           '&:hover': {
-            background: 'linear-gradient(45deg, #90caf9, #f8bbd9)',
-            boxShadow: '0 8px 25px rgba(100, 181, 246, 0.4)',
+            background: 'linear-gradient(135deg, #4f46e5 0%, #9333ea 100%)',
           },
-        },
-        outlined: {
-          borderWidth: 2,
-          borderColor: '#64b5f6',
-          color: '#64b5f6',
-          '&:hover': {
-            borderWidth: 2,
-            background: 'linear-gradient(45deg, rgba(100, 181, 246, 0.1), rgba(244, 143, 177, 0.1))',
-            borderColor: '#f48fb1',
-          },
-        },
-      },
-    },
-    MuiPaper: {
-      styleOverrides: {
-        root: {
-          borderRadius: 16,
-          backgroundImage: 'none',
-          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
         },
       },
     },
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 16,
-          backgroundImage: 'none',
-          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-          '&:hover': {
-            transform: 'translateY(-4px)',
-            boxShadow: '0 12px 40px rgba(100, 181, 246, 0.15)',
-          },
+          borderRadius: 24,
+          border: '1px solid',
+          borderColor: mode === 'dark' ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.06)',
+          background: mode === 'dark' ? 'rgba(30, 41, 59, 0.7)' : 'rgba(255, 255, 255, 0.7)',
+          backdropFilter: 'blur(12px)',
+          boxShadow: 'none',
         },
       },
     },
-    MuiAppBar: {
+    MuiPaper: {
       styleOverrides: {
         root: {
-          backdropFilter: 'blur(20px)',
-          backgroundColor: 'rgba(255,255,255,0.8)',
-          '&.dark': {
-            backgroundColor: 'rgba(26,26,26,0.8)',
-          },
+          backgroundImage: 'none',
         },
       },
     },

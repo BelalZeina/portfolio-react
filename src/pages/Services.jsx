@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async"; // Install: `npm install react-helmet-async`
-import { Typography, useTheme } from "@mui/material";
+import { Typography, useTheme ,Container, Grid, Box ,Paper} from "@mui/material";
 import { useContext } from "react";
 import { ThemeContext } from "../App";
 import {
@@ -16,134 +16,121 @@ import {
 const Services = () => {
   const { isDark } = useContext(ThemeContext);
   const theme = useTheme();
+  
   const services = [
     {
-      icon: <RiReactjsLine size={48} />,
-      title: "Full-Stack Wizardry",
-      description:
-        "Seamlessly bridge the gap between frontend elegance and backend robustness.",
+      icon: <RiReactjsLine size={40} />,
+      title: "Full-Stack Development",
+      description: "Building seamless, high-performance applications bridging elegant frontends with robust backend architectures.",
+      color: "#6366f1"
     },
     {
-      icon: <RiLayoutLine size={48} />,
-      title: "Responsive Design Mastery",
-      description:
-        "Delight your users with websites that adapt flawlessly to any device.",
+      icon: <RiLayoutLine size={40} />,
+      title: "Responsive UI/UX",
+      description: "Crafting modern, mobile-first interfaces that provide delightful experiences across all devices and screen sizes.",
+      color: "#ec4899"
     },
     {
-      icon: <RiServerLine size={48} />,
-      title: "Backend Architectural Prowess",
-      description:
-        "Power up your applications with a strong and efficient backend architecture.",
+      icon: <RiServerLine size={40} />,
+      title: "Backend Engineering",
+      description: "Architecting scalable server-side solutions and efficient databases to power complex digital platforms.",
+      color: "#8b5cf6"
     },
     {
-      icon: <RiDatabase2Line size={48} />,
-      title: "Data Dynamo",
-      description: "Efficiently manage and organize your data.",
+      icon: <RiDatabase2Line size={40} />,
+      title: "Database Management",
+      description: "Expertly designing and optimizing MySQL and MongoDB structures for maximum data integrity and speed.",
+      color: "#10b981"
     },
     {
-      // icon: <FaApi size={48} />,
-      icon: <RiCodeLine  size={48} />,
-      title: "API Alchemy",
-      description: "Craft robust APIs to connect and communicate.",
+      icon: <RiCodeLine size={40} />,
+      title: "API Development",
+      description: "Crafting secure, RESTful APIs and third-party integrations to connect your application with the digital ecosystem.",
+      color: "#f59e0b"
     },
     {
-      icon: <RiCodeSSlashFill size={48} />,
-      title: "End-to-End Project Expertise",
-      description: "Beyond coding, I bring project management skills.",
+      icon: <RiCodeSSlashFill size={40} />,
+      title: "Project Management",
+      description: "Leading technical projects from conception to deployment with a focus on quality, security, and timely delivery.",
+      color: "#3b82f6"
     },
   ];
 
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
+      transition: { staggerChildren: 0.15 }
+    }
   };
 
   const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
+    hidden: { opacity: 0, y: 30 },
     visible: {
-      y: 0,
       opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 10,
-      },
-    },
-    hover: {
-      y: -10,
-      scale: 1.03,
-      transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 10,
-      },
-    },
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" }
+    }
   };
 
   return (
-    <section className="py-5">
+    <Box sx={{ py: { xs: 4, md: 8 } }}>
       <Helmet>
-        <title>Belal Zeina | Services</title>
-        <meta
-          name="description"
-          content="Professional web development services by Belal Zeina."
-        />
+        <title>Services | Belal Zeina</title>
       </Helmet>
-      <div className="container">
+      
+      <Container maxWidth="lg">
         <motion.div
-          initial={{ opacity: 0, y: -30 }}
+          initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.8,
-            type: "spring",
-            stiffness: 100,
-          }}
+          transition={{ duration: 0.8 }}
         >
           <Typography
             variant="h2"
             sx={{
               textAlign: "center",
-              mb: 6,
-              fontWeight: 800,
-              background: 'linear-gradient(45deg, #64b5f6, #f48fb1)',
-              backgroundClip: "text",
+              mb: 2,
+              background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
-              textShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-              letterSpacing: "-0.5px",
+              fontWeight: 900,
             }}
           >
-            OFFERINGS TO MY CLIENTS
+            OFFERINGS
           </Typography>
-          <p className="text-center mb-5 lead">
-            Crafting Web Experiences! From sleek designs to dynamic apps...
-          </p>
+          <Typography
+            variant="h5"
+            sx={{
+              textAlign: "center",
+              mb: 8,
+              color: 'text.secondary',
+              fontWeight: 500,
+              maxWidth: '700px',
+              mx: 'auto'
+            }}
+          >
+            Crafting premium digital experiences through technical excellence and creative design.
+          </Typography>
 
           <motion.div
             variants={containerVariants}
             initial="hidden"
-            animate="visible"
-            className="row g-4"
+            whileInView="visible"
+            viewport={{ once: true }}
           >
-            {services.map((service, index) => (
-              <div key={index} className="col-md-6 col-lg-4">
-                <motion.div
-                  variants={itemVariants}
-                  whileHover="hover"
-                  className="h-100"
-                >
+            <Grid className="row" >
+              {services.map((service, index) => (
+              <div key={index} className="col-md-6 col-lg-4 mt-3">
+                  <motion.div variants={itemVariants} whileHover={{ y: -10 }}>
+
+                   
                   <div
                     className="card h-100 border-0 shadow-lg p-4"
                     style={{
-                      background: isDark
-                        ? "linear-gradient(145deg, #1e1e1e, #2d2d2d)"
-                        : "linear-gradient(145deg, #ffffff, #f8f9fa)",
+                      // background: isDark
+                      //   ? "linear-gradient(145deg, #1e1e1e, #2d2d2d)"
+                      //   : "linear-gradient(145deg, #ffffff, #f8f9fa)",
+                      background: isDark ? 'rgba(30, 41, 59, 0.4)' : 'rgba(255, 255, 255, 0.6)',
                       borderRadius: "16px",
                       overflow: "hidden",
                       position: "relative",
@@ -161,7 +148,7 @@ const Services = () => {
                         width: "120px",
                         height: "120px",
                         borderRadius: "50%",
-                        background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+                        background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
                         opacity: 0.07,
                         filter: "blur(15px)",
                       }}
@@ -176,7 +163,7 @@ const Services = () => {
                         width: "70px",
                         height: "70px",
                         borderRadius: "16px",
-                        background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+                        background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
                         color: "white",
                         marginBottom: "1rem",
                         boxShadow: "0 10px 20px rgba(59, 130, 246, 0.3)",
@@ -204,10 +191,11 @@ const Services = () => {
                 </motion.div>
               </div>
             ))}
+            </Grid>
           </motion.div>
         </motion.div>
-      </div>
-    </section>
+      </Container>
+    </Box>
   );
 };
 
